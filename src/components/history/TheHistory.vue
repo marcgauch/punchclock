@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <template #header> History </template>
-    <el-table :data="entries">
+    <el-table :data="entries" style="width: 99%">
       <el-table-column prop="type" label="Type" width="180" />
       <el-table-column prop="date.ISO" label="Date" width="180" />
       <el-table-column label="Time" width="180">
