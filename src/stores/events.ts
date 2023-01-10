@@ -1,26 +1,26 @@
 import { defineStore } from "pinia";
 import { DateTimeFragmented, EventType } from "@/models/models";
 import { DateEvent } from "@/models/models";
+import Util from "@/util/util";
 
 export const useEventsStore = defineStore("events", {
   state: () => ({
     events: [] as DateEvent[],
     isWorking: false,
+    date: Util.formatToYYYYMMDD(new Date()) as string,
   }),
   getters: {
     getEntriesForDate: (state) => {
-      return (ISOdate: string) => {
-        const entries = state.events.filter((e) => e.date.ISO === ISOdate);
-        DateEvent.calculateDifferences(entries);
-        return entries;
-      };
+      const entries = state.events.filter((e) => e.date.ISO === state.date);
+      DateEvent.calculateDifferences(entries);
+      return entries;
     },
     getEntryById: (state) => {
       return (id: string) => state.events.find((e) => e.id === id);
     },
-    getTotalTime: (state) => {
+    getTotalTime() {
       let sum = 0;
-      state.events.forEach((e) => {
+      this.getEntriesForDate.forEach((e) => {
         sum += e.date.differenceToPrevious || 0;
       });
       return sum;

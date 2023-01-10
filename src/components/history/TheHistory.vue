@@ -13,8 +13,6 @@
 import { computed } from "vue";
 import { useEventsStore } from "@/stores/events";
 import HistoryEntry from "./HistoryEntry.vue";
-import { DateTimeFragmentedUtil } from "@/models/models";
 const eventStore = useEventsStore();
-const today = DateTimeFragmentedUtil.createWithNow().ISO;
-const entries = computed(() => eventStore.getEntriesForDate(today));
+const entries = computed(() => eventStore.getEntriesForDate);
 </script>
