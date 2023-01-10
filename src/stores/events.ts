@@ -27,18 +27,11 @@ export const useEventsStore = defineStore("events", {
     },
   },
   actions: {
-    toggleWorking() {
-      if (this.isWorking) {
-        this.events.push(new DateEvent(EventType.STAMPOUT));
-      } else {
-        this.events.push(new DateEvent(EventType.STAMPIN));
-      }
+    addEvent(eventType: EventType) {
+      this.events.push(new DateEvent(eventType));
       this.events = DateEvent.sort(this.events);
       this.isWorking = !this.isWorking;
       this.persist();
-    },
-    addEvent(type: EventType) {
-      this.events.push(new DateEvent(type));
     },
     shuffle() {
       this.events = this.events.sort(() => Math.random() - 0.5);

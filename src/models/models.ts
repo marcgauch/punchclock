@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 export enum EventType {
   STAMPIN = "STAMPIN",
   STAMPOUT = "STAMPOUT",
+  INTERMEDIATE = "INTERMEDIATE",
 }
 
 export class DateTimeFragmented {
@@ -74,7 +75,8 @@ export class DateEvent {
     for (let i = 0; i < events.length - 1; i++) {
       const a = events[i];
       const b = events[i + 1];
-      if (a.type === EventType.STAMPIN && b.type === EventType.STAMPOUT) {
+      if (a.type !== EventType.STAMPOUT && b.type !== EventType.STAMPIN) {
+        //if (a.type === EventType.STAMPIN && b.type === EventType.STAMPOUT) {
         b.date.differenceToPrevious = b.date.timestamp - a.date.timestamp;
       } else {
         b.date.differenceToPrevious = null;
