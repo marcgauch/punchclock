@@ -3,18 +3,24 @@
     <template #header> Summary </template>
     <el-row v-if="total !== null">
       <el-col :span="8">
-        <TimeTag :display-value="`${total} min`" :clipboard-value="total" />
+        <TimeTag
+          :key="total"
+          :display-value="`${total} min`"
+          :clipboard-value="total"
+        />
       </el-col>
       <el-col :span="8">
         <TimeTag
+          :key="total"
           :display-value="`${Math.floor(total / 60)} hrs ${total % 60} min`"
           :clipboard-value="HHMM"
         />
       </el-col>
       <el-col :span="8">
         <TimeTag
-          :display-value="`${(total / 60).toFixed(2)} hours`"
-          :clipboard-value="(total / 60).toFixed(2)"
+          :key="total"
+          :display-value="`${hoursDecimal} hours`"
+          :clipboard-value="hoursDecimal"
         />
       </el-col>
     </el-row>
@@ -30,6 +36,7 @@ const total = computed(() => eventStore.getTotalTime);
 
 const hours = computed(() => Math.floor(total.value / 60));
 const minutes = computed(() => Math.floor(total.value % 60));
+const hoursDecimal = computed(() => (total.value / 60).toFixed(2));
 
 const HHMM = computed(() => {
   const h = hours.value;
